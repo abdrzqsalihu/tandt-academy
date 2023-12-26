@@ -41,6 +41,12 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="addstudent.php">
+                <i class='menu-icon bx bx-book-add' style="font-size: 20px;"></i>
+                <span class="menu-title">Register Student</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="settings.php">
                 <i class='menu-icon bx bxs-cog' style="font-size: 20px;"></i>
                 <span class="menu-title">Settings</span>
