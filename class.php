@@ -92,8 +92,7 @@ if ($stmt) {
             if ($class_result->num_rows > 0) {
                 // Output data of the first row
                 $class_row = $class_result->fetch_assoc();
-                 $class_name = $class_row["classes"];
-
+                $class_name = $class_row["classes"];
             } else {
                 echo "";
             }
@@ -106,7 +105,14 @@ if ($stmt) {
 
             <div class="main-panel">
                 <div class="content-wrapper">
-                   <h5 style="font-weight: bold;">Detail for <?php echo  $class_name ?></h5> <hr> <br>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h5 style="font-weight: bold; margin-right: 10px;">Detail for <?php echo $class_name ?></h5>
+                        <a href="addsubjects.php?class=<?php echo $class?>">
+                        <button class="btn btn-dark">Add Subject</button>
+                        </a>
+                    </div>
+
+                    <hr> <br>
                     <ul class="nav nav-tabs" id="myTabs">
                         <li class="nav-item">
                             <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1">Subject</a>
@@ -135,38 +141,38 @@ if ($stmt) {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                        <tr>
-                                                            <td>English Language - ENG</td>
-                                                            <td>Mr Effong Friday</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Edit
-                                                                    </button>
-                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                                        <button class="dropdown-item" type="button">Action</button>
-                                                                        <button class="dropdown-item" type="button">Another action</button>
-                                                                        <button class="dropdown-item" type="button">Something else here</button>
-                                                                    </div>
+                                                    <tr>
+                                                        <td>English Language - ENG</td>
+                                                        <td>Mr Effong Friday</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    Edit
+                                                                </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                                    <button class="dropdown-item" type="button">Action</button>
+                                                                    <button class="dropdown-item" type="button">Another action</button>
+                                                                    <button class="dropdown-item" type="button">Something else here</button>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>MatheMatics - MAT</td>
-                                                            <td>Mrs Chioma Effong</td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Edit
-                                                                    </button>
-                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                                        <button class="dropdown-item" type="button">Action</button>
-                                                                        <button class="dropdown-item" type="button">Another action</button>
-                                                                        <button class="dropdown-item" type="button">Something else here</button>
-                                                                    </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>MatheMatics - MAT</td>
+                                                        <td>Mrs Chioma Effong</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    Edit
+                                                                </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                                    <button class="dropdown-item" type="button">Action</button>
+                                                                    <button class="dropdown-item" type="button">Another action</button>
+                                                                    <button class="dropdown-item" type="button">Something else here</button>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -198,31 +204,31 @@ if ($stmt) {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        Edit
-                                                                    </button>
-                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                                        <button class="dropdown-item" type="button">Action</button>
-                                                                        <button class="dropdown-item" type="button">Another action</button>
-                                                                        <button class="dropdown-item" type="button">Something else here</button>
-                                                                    </div>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    Edit
+                                                                </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                                    <button class="dropdown-item" type="button">Action</button>
+                                                                    <button class="dropdown-item" type="button">Another action</button>
+                                                                    <button class="dropdown-item" type="button">Something else here</button>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
