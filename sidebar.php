@@ -35,7 +35,7 @@
                     ?>
                     <?php
                     foreach ($classes as $class) { ?>
-                        <li class="nav-item"> <a class="nav-link" href="#!" style="font-size: 13px; margin-bottom:-8px"><?php echo $class['classes'] ?></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="class.php?class=<?php echo $class['id']?>" style="font-size: 13px; margin-bottom:-8px; color:lightgray !important"><?php echo $class['classes'] ?></a></li>
                     <?php } ?>
                 </ul>
             </div>
