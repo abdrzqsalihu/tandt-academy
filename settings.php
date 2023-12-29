@@ -29,6 +29,7 @@ if ($stmt) {
         $id = $row['id'];
         $name = $row['name'];
         $email = $row['email'];
+        $phone = $row['phone'];
         $password = $row['password'];
         // $personalstatus = $row['status'];
     } else {
@@ -95,9 +96,25 @@ if ($stmt) {
                     die("Invalid email format"); // Exit with a clear error message
                 }
 
+                // Upload directory where the images will be stored
+                $uploadDir = "images/teachers/";
+
+                // Check if image was uploaded and is an image
+                if (isset($_FILES["img"])) {
+                    // Use the phone number and a random number as the image name
+                    $randomNumber = mt_rand(1000, 9999); // Adjust the range as needed
+                    $image_name = $phone . "_" . $name . ".jpg"; // You can adjust the file extension based on the image type
+
+                    $imagePath = $uploadDir . $image_name;
+                    move_uploaded_file($_FILES["img"]["tmp_name"], $imagePath);
+                    // echo "Image was successfully uploaded.<br>";
+                } else {
+                    // echo "Image is required and must be a valid image file.<br>";
+                }
+
                 // Prepare statement with error handling
-                if ($stmt = mysqli_prepare($conn, "UPDATE admin SET name=?, phone=?, password=? WHERE id=? AND email=?")) {
-                    mysqli_stmt_bind_param($stmt, "sssis", $name, $phone, $password, $id, $email);
+                if ($stmt = mysqli_prepare($conn, "UPDATE admin SET name=?, phone=?, img=?, password=? WHERE id=? AND email=?")) {
+                    mysqli_stmt_bind_param($stmt, "ssssis", $name, $phone, $image_name, $password, $id, $email);
 
                     // Execute query and handle potential errors
                     if (mysqli_stmt_execute($stmt)) {
@@ -123,7 +140,7 @@ if ($stmt) {
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Edit Profile</h4>
-                                    <form class="forms-sample" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                    <form class="forms-sample" method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                         <input type="hidden" name="id" value="<?php echo $id ?>">
                                         <div class="form-group">
                                             <label>Full Name</label>
@@ -134,8 +151,12 @@ if ($stmt) {
                                             <input type="email" class="form-control" name="email" value="<?php echo $email ?>" placeholder="Email">
                                         </div>
                                         <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input type="text" class="form-control" name="phone" value="<?php echo $phone ?>" placeholder="Phone Number">
+                                        </div>
+                                        <div class="form-group">
                                             <label>File upload</label>
-                                            <input type="file" name="img[]" class="file-upload-default">
+                                            <input type="file" name="img" class="file-upload-default">
                                             <div class="input-group col-xs-12">
                                                 <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                                 <span class="input-group-append">
@@ -195,6 +216,7 @@ if ($stmt) {
         <script src="js/template.js"></script>
         <!-- End plugin js for this page -->
         <!-- Custom js for this page-->
+        <script src="js/file-upload.js"></script>
         <script src="js/dashboard.js"></script>
         <!-- End custom js for this page-->
 </body>

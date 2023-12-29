@@ -81,7 +81,12 @@ if ($stmt) {
             <!-- partial -->
 
             <?php
-            $fname = ""; $lname = ""; $email = ""; $phone = ""; $class = ""; $password = ""; 
+            $fname = "";
+            $lname = "";
+            $email = "";
+            $phone = "";
+            $class = "";
+            $password = "";
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Sanitize and validate input rigorously
                 $fname = filter_input(INPUT_POST, 'fname', FILTER_UNSAFE_RAW);
@@ -92,14 +97,31 @@ if ($stmt) {
                 $password = 12345;
                 $password = password_hash(filter_input(INPUT_POST, 'password', FILTER_UNSAFE_RAW), PASSWORD_DEFAULT); // Hash password
 
+
                 // Validate email format
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     die("Invalid email format"); // Exit with a clear error message
                 }
 
+                // Upload directory where the images will be stored
+                $uploadDir = "images/students/";
+
+                // Check if image was uploaded and is an image
+                if (isset($_FILES["img"])) {
+                    // Use the phone number and a random number as the image name
+                    $randomNumber = mt_rand(1000, 9999); // Adjust the range as needed
+                    $image_name = $phone . "_" . $randomNumber . ".jpg"; // You can adjust the file extension based on the image type
+
+                    $imagePath = $uploadDir . $image_name;
+                    move_uploaded_file($_FILES["img"]["tmp_name"], $imagePath);
+                    // echo "Image was successfully uploaded.<br>";
+                } else {
+                    // echo "Image is required and must be a valid image file.<br>";
+                }
+
                 // Prepare statement with error handling
-                if ($stmt = mysqli_prepare($conn, "INSERT INTO students (fname, lname, email, p_phone, class, password) VALUES (?, ?, ?, ?, ?, ?)")) {
-                    mysqli_stmt_bind_param($stmt, "ssssss", $fname, $lname, $email, $phone, $class, $password);
+                if ($stmt = mysqli_prepare($conn, "INSERT INTO students (fname, lname, email, p_phone, class, img, password) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+                    mysqli_stmt_bind_param($stmt, "sssssss", $fname, $lname, $email, $phone, $class, $image_name, $password);
 
                     // Execute query and handle potential errors
                     if (mysqli_stmt_execute($stmt)) {
@@ -125,7 +147,7 @@ if ($stmt) {
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Register Student</h4>
-                                    <form class="forms-sample" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                    <form class="forms-sample" method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                         <div class="form-group">
                                             <label>First Name</label>
                                             <input type="text" class="form-control" name="fname" value="<?php echo $fname ?>" placeholder="First Name">
@@ -219,6 +241,8 @@ if ($stmt) {
         <script src="js/off-canvas.js"></script>
         <script src="js/hoverable-collapse.js"></script>
         <script src="js/template.js"></script>
+        <!-- Custom js for this page-->
+        <script src="js/file-upload.js"></script>
         <!-- End plugin js for this page -->
         <!-- Custom js for this page-->
         <script src="js/dashboard.js"></script>
