@@ -81,6 +81,7 @@ if ($stmt) {
             <!-- partial -->
 
             <?php
+            $error = '';
             $fname = "";
             $lname = "";
             $email = "";
@@ -100,7 +101,7 @@ if ($stmt) {
 
                 // Validate email format
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    die("Invalid email format"); // Exit with a clear error message
+                    $error = "Invalid email format"; // Exit with a clear error message
                 }
 
                 // Upload directory where the images will be stored
@@ -128,12 +129,12 @@ if ($stmt) {
                         echo "<script>alert('User Added Successfully!')</script>";
                         echo "<script>location.href='index.php'</script>";
                     } else {
-                        echo "Error adding user: " . mysqli_error($conn); // Provide specific error details
+                        $error = "Error adding user: " . mysqli_error($conn); // Provide specific error details
                     }
 
                     mysqli_stmt_close($stmt);
                 } else {
-                    echo "Internal server error. Please try again later.";
+                    $error = "Internal server error. Please try again later.";
                 }
             }
             ?>
@@ -144,7 +145,8 @@ if ($stmt) {
                 <div class="content-wrapper">
                     <div class="custom-row">
                         <div class="col l5 m6 s12 grid-margin stretch-card push-l3">
-                            <div class="card">
+                            <div class="card"> <br>
+                                <h5 style="color:red; text-align:center; font-weight:bold"><?php echo $error; ?></h5>
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Register Student</h4>
                                     <form class="forms-sample" method="post" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
