@@ -45,7 +45,6 @@ if ($stmt) {
     exit();
 }
 
-
 ?>
 
 
@@ -84,6 +83,39 @@ if ($stmt) {
 
             <?php
             $class = htmlspecialchars($_GET['class']);
+
+            // GET CURRENT CLASS DB 
+            if ($class == 1) {
+                $class_db = 'kg1_subjects';
+            } elseif ($class == 2) {
+                $class_db = 'pre_nursery_subjects';
+            } elseif ($class == 3) {
+                $class_db = 'nursery2_subjects';
+            } elseif ($class == 4) {
+                $class_db = 'basic1_subjects';
+            } elseif ($class == 5) {
+                $class_db = 'basic2_subjects';
+            } elseif ($class == 6) {
+                $class_db = 'basic3_subjects';
+            } elseif ($class == 7) {
+                $class_db = 'basic4_subjects';
+            } elseif ($class == 8) {
+                $class_db = 'basic5_subjects';
+            } elseif ($class == 9) {
+                $class_db = 'jss1_subjects';
+            } elseif ($class == 10) {
+                $class_db = 'jss2_subjects';
+            } elseif ($class == 11) {
+                $class_db = 'jss3_subjects';
+            } elseif ($class == 12) {
+                $class_db = 'sss1_subjects';
+            } elseif ($class == 13) {
+                $class_db = 'sss2_subjects';
+            } elseif ($class == 14) {
+                $class_db = 'sss3_subjects';
+            } else {
+            }
+
             // CLASS SQL query
             $class_sql = "SELECT classes FROM classes WHERE id = $class";
             $class_result = $conn->query($class_sql);
@@ -99,7 +131,13 @@ if ($stmt) {
             $sqr = "SELECT * FROM students WHERE class = $class";
             $students = mysqli_query($conn, $sqr);
             $fetch_students = mysqli_fetch_all($students, MYSQLI_ASSOC);
-            mysqli_free_result($students);
+            // mysqli_free_result($students);
+
+            // SELECT SUBJECTS and Teachers from DB 
+            $subject_and_teacher_sql = "SELECT * FROM $class_db";
+            $subject_and_teachers = mysqli_query($conn, $subject_and_teacher_sql);
+            $fetch_subject_and_teacher = mysqli_fetch_all($subject_and_teachers, MYSQLI_ASSOC);
+            // mysqli_free_result($subject_and_teachers);
             ?>
 
 
@@ -107,8 +145,8 @@ if ($stmt) {
                 <div class="content-wrapper">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <h5 style="font-weight: bold; margin-right: 10px;">Detail for <?php echo $class_name ?></h5>
-                        <a href="addsubjects.php?class=<?php echo $class?>">
-                        <button class="btn btn-dark">Add Subject</button>
+                        <a href="addsubjects.php?class=<?php echo $class ?>">
+                            <button class="btn btn-dark">Add Subject</button>
                         </a>
                     </div>
 
@@ -124,6 +162,8 @@ if ($stmt) {
                             <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3">Student Details</a>
                         </li>
                     </ul>
+
+
 
                     <div class="tab-content mt-2">
                         <div class="tab-pane fade show active" id="tab1">
@@ -141,38 +181,19 @@ if ($stmt) {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>English Language - ENG</td>
-                                                        <td>Mr Effong Friday</td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    Edit
-                                                                </button>
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                                    <button class="dropdown-item" type="button">Action</button>
-                                                                    <button class="dropdown-item" type="button">Another action</button>
-                                                                    <button class="dropdown-item" type="button">Something else here</button>
+                                                    <?php foreach ($subject_and_teachers as $subject_and_teacher) { ?>
+                                                        <tr>
+                                                            <td><?php echo $subject_and_teacher['subject'] ?> - <?php echo $subject_and_teacher['subject_abr'] ?></td>
+                                                            <td><?php echo $subject_and_teacher['subject_teacher'] ?></td>
+                                                            <td>
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-dark" type="button">
+                                                                        Edit
+                                                                    </button>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>MatheMatics - MAT</td>
-                                                        <td>Mrs Chioma Effong</td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                    Edit
-                                                                </button>
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                                    <button class="dropdown-item" type="button">Action</button>
-                                                                    <button class="dropdown-item" type="button">Another action</button>
-                                                                    <button class="dropdown-item" type="button">Something else here</button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -190,32 +211,20 @@ if ($stmt) {
                                                 <thead>
                                                     <tr>
                                                         <th>Full Name</th>
-                                                        <th>ENG</th>
-                                                        <th>MAT</th>
-                                                        <th>PHE</th>
-                                                        <th>AGR</th>
-                                                        <th>SEC</th>
-                                                        <th>LIT</th>
-                                                        <th>CIV</th>
-                                                        <th>FRE</th>
-                                                        <th>CCA</th>
-                                                        <th>BSC</th>
+                                                        <?php foreach ($subject_and_teachers as $subject_and_teacher) { ?>
+                                                            <th><?php echo $subject_and_teacher['subject_abr'] ?></th>
+                                                        <?php } ?>
+
+
                                                         <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <?php foreach ($subject_and_teachers as $subject_and_teacher) { ?>
+                                                            <td><?php $subject_and_teacher['id'] ?></td>
+                                                        <?php } ?>
                                                         <td>
                                                             <div class="dropdown">
                                                                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
