@@ -221,9 +221,12 @@ if ($stmt) {
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td></td>
+                                                        <td>Musa Dikko</td>
                                                         <?php foreach ($subject_and_teachers as $subject_and_teacher) { ?>
-                                                            <td><?php $subject_and_teacher['id'] ?></td>
+                                                            <td>
+                                                                <?php $subject_and_teacher['id'] ?>
+                                                                <p> <strong></strong></p>
+                                                        </td>
                                                         <?php } ?>
                                                         <td>
                                                             <div class="dropdown">
