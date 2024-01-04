@@ -47,6 +47,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="addteacher.php">
+                <i class='menu-icon bx bx-user' style="font-size: 20px;"></i>
+                <span class="menu-title">Register Teacher</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="settings.php">
                 <i class='menu-icon bx bxs-cog' style="font-size: 20px;"></i>
                 <span class="menu-title">Settings</span>
