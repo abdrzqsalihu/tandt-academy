@@ -29,6 +29,7 @@ if ($stmt) {
         $id = $row['id'];
         $name = $row['name'];
         $email = $row['email'];
+        $_SESSION['status'] = $status = $row['status'];
         $_SESSION['img'] = $img = $row['img'];
         // $personalstatus = $row['status'];
     } else {

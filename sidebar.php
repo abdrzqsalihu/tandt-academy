@@ -40,18 +40,22 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="addstudent.php">
-                <i class='menu-icon bx bx-book-add' style="font-size: 20px;"></i>
-                <span class="menu-title">Register Student</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="addteacher.php">
-                <i class='menu-icon bx bx-user' style="font-size: 20px;"></i>
-                <span class="menu-title">Register Teacher</span>
-            </a>
-        </li>
+        <?php
+
+        if ($_SESSION['status'] == 'SUPER_ADMIN') { ?>
+            <li class="nav-item">
+                <a class="nav-link" href="addstudent.php">
+                    <i class='menu-icon bx bx-book-add' style="font-size: 20px;"></i>
+                    <span class="menu-title">Register Student</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="addteacher.php">
+                    <i class='menu-icon bx bx-user' style="font-size: 20px;"></i>
+                    <span class="menu-title">Register Teacher</span>
+                </a>
+            </li>
+        <?php }else{} ?>
         <li class="nav-item">
             <a class="nav-link" href="settings.php">
                 <i class='menu-icon bx bxs-cog' style="font-size: 20px;"></i>

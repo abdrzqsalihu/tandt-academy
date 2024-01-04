@@ -29,6 +29,7 @@ if ($stmt) {
         $id = $row['id'];
         $name = $row['name'];
         $email = $row['email'];
+        $_SESSION['status'] = $status = $row['status'];
         $password = $row['password'];
         // $personalstatus = $row['status'];
     } else {
@@ -151,12 +152,24 @@ if ($stmt) {
                     </div>
 
                     <hr> <br>
+
+                    <?php  
+                        if ($_SESSION['status'] !== 'SUPER_ADMIN') {
+                            $activetab = 'active';
+                            $showtab = 'show';
+                        }else{
+                            $activetab = '';
+                            $showtab = '';
+                        }
+                    ?>
                     <ul class="nav nav-tabs" id="myTabs">
+                        <?php if ($_SESSION['status'] == 'SUPER_ADMIN') { ?>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1">Subject</a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item">
-                            <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1">Subject</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2">Broad Sheet</a>
+                            <a class="nav-link <?php echo $activetab ?>" id="tab2-tab" data-toggle="tab" href="#tab2">Broad Sheet</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3">Student Details</a>
@@ -166,42 +179,44 @@ if ($stmt) {
 
 
                     <div class="tab-content mt-2">
-                        <div class="tab-pane fade show active" id="tab1">
-                            <div class="col-lg-12 grid-margin stretch-card">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Subject Details</h4>
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Subject</th>
-                                                        <th>Teacher</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($subject_and_teachers as $subject_and_teacher) { ?>
+                        <?php if ($_SESSION['status'] == 'SUPER_ADMIN') { ?>
+                            <div class="tab-pane fade show active" id="tab1">
+                                <div class="col-lg-12 grid-margin stretch-card">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Subject Details</h4>
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
                                                         <tr>
-                                                            <td><?php echo $subject_and_teacher['subject'] ?> - <?php echo $subject_and_teacher['subject_abr'] ?></td>
-                                                            <td><?php echo $subject_and_teacher['subject_teacher'] ?></td>
-                                                            <td>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-dark" type="button">
-                                                                        Edit
-                                                                    </button>
-                                                                </div>
-                                                            </td>
+                                                            <th>Subject</th>
+                                                            <th>Teacher</th>
+                                                            <th>Status</th>
                                                         </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php foreach ($subject_and_teachers as $subject_and_teacher) { ?>
+                                                            <tr>
+                                                                <td><?php echo $subject_and_teacher['subject'] ?> - <?php echo $subject_and_teacher['subject_abr'] ?></td>
+                                                                <td><?php echo $subject_and_teacher['subject_teacher'] ?></td>
+                                                                <td>
+                                                                    <div class="dropdown">
+                                                                        <button class="btn btn-dark" type="button">
+                                                                            Edit
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="tab2">
+                        <?php } ?>
+                        <div class="tab-pane fade <?php echo $showtab . ' ' . $activetab; ?>" id="tab2">
                             <div class="col-lg-12 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
@@ -226,7 +241,7 @@ if ($stmt) {
                                                             <td>
                                                                 <?php $subject_and_teacher['id'] ?>
                                                                 <p> <strong></strong></p>
-                                                        </td>
+                                                            </td>
                                                         <?php } ?>
                                                         <td>
                                                             <div class="dropdown">
