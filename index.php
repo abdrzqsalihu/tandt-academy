@@ -29,6 +29,7 @@ if ($stmt) {
         $id = $row['id'];
         $name = $row['name'];
         $email = $row['email'];
+        $_SESSION['img'] = $img = $row['img'];
         // $personalstatus = $row['status'];
     } else {
         // Handle the case where no user is found

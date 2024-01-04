@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = $_POST['password'];
 
   // Using prepared statement to prevent SQL injection
-  $query = "SELECT * FROM admin WHERE email = ? OR phone = ? AND password = ?";
+  $query = "SELECT * FROM admin WHERE (email = ? OR phone = ?) AND password = ?";
   $stmt = mysqli_prepare($conn, $query);
 
   // Check if the statement was prepared successfully
@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if a row is returned
     if ($row = mysqli_fetch_assoc($result)) {
+      // Validate the password using password_verify if the passwords are hashed
+      // Example: if (password_verify($password, $row['hashed_password'])) {
       $_SESSION['user'] = $user;
       $_SESSION['status'] = "Logged in";
       header('location: index.php');
@@ -42,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = "Internal server error. Please try again later.";
   }
 }
+
 ?>
 
 

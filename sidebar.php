@@ -1,8 +1,8 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #632F85">
     <div class="user-profile">
         <div class="user-image">
-            <!-- <img src="images/faces/face28.png"> -->
-            <i class='bx bx-user mb-2' style='color:#ffffff; font-size:3.5rem'></i>
+            <img src="images/teachers/<?php echo $_SESSION['img'] ?>">
+            <!-- <i class='bx bx-user mb-2' style='color:#ffffff; font-size:3.5rem'></i> -->
         </div>
         <div class="user-name">
             <?php echo $name ?>
@@ -35,7 +35,7 @@
                     ?>
                     <?php
                     foreach ($classes as $class) { ?>
-                        <li class="nav-item"> <a class="nav-link" href="class.php?class=<?php echo $class['id']?>" style="font-size: 13px; margin-bottom:-8px; color:lightgray !important"><?php echo $class['classes'] ?></a></li>
+                        <li class="nav-item"> <a class="nav-link" href="class.php?class=<?php echo $class['id'] ?>" style="font-size: 13px; margin-bottom:-8px; color:lightgray !important"><?php echo $class['classes'] ?></a></li>
                     <?php } ?>
                 </ul>
             </div>
