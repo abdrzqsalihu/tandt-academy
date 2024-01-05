@@ -1,3 +1,8 @@
+<?php
+$_SESSION['classes'];
+$targetClassIds = explode(',', $_SESSION['classes']);
+?>
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #632F85">
     <div class="user-profile">
         <div class="user-image">
@@ -32,11 +37,12 @@
                     $classes = mysqli_fetch_all($querys, MYSQLI_ASSOC);
                     mysqli_free_result($querys);
                     //  mysqli_close($conn);
-                    ?>
-                    <?php
-                    foreach ($classes as $class) { ?>
-                        <li class="nav-item"> <a class="nav-link" href="class.php?class=<?php echo $class['id'] ?>" style="font-size: 13px; margin-bottom:-8px; color:lightgray !important"><?php echo $class['classes'] ?></a></li>
-                    <?php } ?>
+
+                    foreach ($classes as $class) {
+                        // Display details only for the classes with matching IDs
+                        if (in_array($class['id'], $targetClassIds)) { ?>
+                            <li class="nav-item"> <a class="nav-link" href="class.php?class=<?php echo $class['id'] ?>" style="font-size: 13px; margin-bottom:-8px; color:lightgray !important"><?php echo $class['classes'] ?></a></li>
+                    <?php } } ?>
                 </ul>
             </div>
         </li>
@@ -55,7 +61,8 @@
                     <span class="menu-title">Register Teacher</span>
                 </a>
             </li>
-        <?php }else{} ?>
+        <?php } else {
+        } ?>
         <li class="nav-item">
             <a class="nav-link" href="settings.php">
                 <i class='menu-icon bx bxs-cog' style="font-size: 20px;"></i>
