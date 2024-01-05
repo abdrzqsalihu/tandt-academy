@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2024 at 08:43 PM
+-- Generation Time: Jan 05, 2024 at 09:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,7 +43,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `img`, `password`, `classes`, `status`) VALUES
-(1, 'Abdulrazaq Salihu Onoruoiza', 'user@admin.com', '+2348085458632', '+2348085458632_Abdulrazaq Salihu Onoruoiza.jpg', 'qwerty123', '', 'SUPER_ADMIN'),
+(1, 'Abdulrazaq Salihu Onoruoiza', 'user@admin.com', '+2348085458632', '+2348085458632_Abdulrazaq Salihu Onoruoiza.jpg', 'qwerty123', '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14', 'SUPER_ADMIN'),
 (2, 'King Timothy', 'kingt@gmail.com', '09076543456', '09076543456_9681.jpg', '09076543456', '1,13', 'TEACHER');
 
 -- --------------------------------------------------------
